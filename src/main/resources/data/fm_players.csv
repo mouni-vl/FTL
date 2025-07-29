@@ -1,0 +1,22 @@
+externalPlayerId,firstName,lastName,position,rating,clubId
+P1001,Lionel,Messi,CF,19,CLUB1
+P1001,Lionel,Messi,RW,18,CLUB1
+P1001,Lionel,Messi,CAM,18,CLUB1
+P1002,Cristiano,Ronaldo,ST,19,CLUB2
+P1002,Cristiano,Ronaldo,LW,18,CLUB2
+P1003,Kevin,De Bruyne,CAM,19,CLUB3
+P1003,Kevin,De Bruyne,CM,18,CLUB3
+P1003,Kevin,De Bruyne,CDM,16,CLUB3
+P1004,Virgil,Van Dijk,CB,19,CLUB4
+P1004,Virgil,Van Dijk,LB,15,CLUB4
+P1005,Manuel,Neuer,GK,19,CLUB5
+P1006,Trent,Alexander-Arnold,RB,18,CLUB4
+P1006,Trent,Alexander-Arnold,RM,16,CLUB4
+P1007,Kylian,Mbappe,ST,19,CLUB6
+P1007,Kylian,Mbappe,LW,18,CLUB6
+P1007,Kylian,Mbappe,RW,18,CLUB6
+P1008,Erling,Haaland,ST,19,CLUB3
+P1009,Joshua,Kimmich,CDM,18,CLUB5
+P1009,Joshua,Kimmich,RB,17,CLUB5
+P1010,N'Golo,Kante,CDM,18,CLUB7
+P1010,N'Golo,Kante,CM,17,CLUB7
