@@ -1,6 +1,6 @@
 package com.example.fantasy.batch.processor;
 
-import com.example.fantasy.batch.reader.PlayerCsvItem;
+import com.example.fantasy.batch.reader.PlayerCsvReader;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +11,10 @@ import java.util.*;
  * This simple implementation returns each item in a list; actual aggregation happens in writer.
  */
 @Component
-public class PlayerAggregationProcessor implements ItemProcessor<PlayerCsvItem, List<PlayerCsvItem>> {
+public class PlayerAggregationProcessor implements ItemProcessor<PlayerCsvReader, List<PlayerCsvReader>> {
 
     @Override
-    public List<PlayerCsvItem> process(PlayerCsvItem item) {
+    public List<PlayerCsvReader> process(PlayerCsvReader item) {
         // Simple approach: just return each item in a list; actual aggregation happens in writer
         return Collections.singletonList(item);
     }

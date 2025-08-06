@@ -27,15 +27,15 @@ public class Player {
     private String cityOfBirth;
 
     // Club information
-    private String permanentClub;
-    private String basedClub;
-    private String loanClub;
+    private Long permanentClub;
+    private Long basedClub;
+    private Long loanClub;
     private Integer squadNumber;
 
     // Nationality information
-    private String nationality1;
-    private String nationality2;
-    private String nationality3;
+    private Long nationality1;
+    private Long nationality2;
+    private Long nationality3;
 
     // Stats
     private Boolean nfe;

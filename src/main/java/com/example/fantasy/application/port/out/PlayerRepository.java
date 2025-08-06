@@ -24,6 +24,8 @@ public interface PlayerRepository {
 
     Player save(Player player);
 
+    List<Player> saveAll(List<Player> players);
+
     void update(Player player);
 
     void deleteById(Long id);
