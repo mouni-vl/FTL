@@ -14,14 +14,18 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class PlayerItemProcessor implements ItemProcessor<PlayerCsvRecord, Player> {
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final String BATCH = "Import-Batch";
 
     @Override
@@ -68,7 +72,7 @@ public class PlayerItemProcessor implements ItemProcessor<PlayerCsvRecord, Playe
                     .totalPoints(0)
 
                     .active(true)
-                    .deleted(false)
+                    .availabilityStatus("Available")
 
                     .createdAt(Instant.now())
                     .updatedAt(Instant.now())
@@ -161,12 +165,58 @@ public class PlayerItemProcessor implements ItemProcessor<PlayerCsvRecord, Playe
         return position.toMap();
     }
 
-    //refactor later
     private MainPosition determineMainPosition(Map<String, Integer> positions) {
-        return positions.entrySet().stream()
+        if (positions == null || positions.isEmpty()) return MainPosition.UNKNOWN;
+
+        Map<MainPosition, List<String>> roleGroups = Map.of(
+                MainPosition.GK, List.of("GK"),
+                MainPosition.DEF, List.of("DL", "DC", "DR", "WBL", "WBR"),
+                MainPosition.MID, List.of("DM", "MC", "ML", "MR", "AML", "AMC", "AMR"),
+                MainPosition.FWD, List.of("SC")
+        );
+
+        // Step 1: Find max position value
+        int maxRating = positions.values().stream().max(Integer::compareTo).orElse(0);
+        if (maxRating < 1) return MainPosition.UNKNOWN;
+
+        // Step 2: Find all positions with max rating
+        Set<String> topRatedPositions = positions.entrySet().stream()
+                .filter(entry -> entry.getValue() == maxRating)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+
+        // Step 3: Count how many top-rated positions fall into each role
+        Map<MainPosition, Long> topRoleCounts = roleGroups.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        e -> e.getValue().stream().filter(topRatedPositions::contains).count()
+                ));
+
+        // Step 4: If a role dominates among top-rated → return it
+        Optional<Map.Entry<MainPosition, Long>> dominantTopRole = topRoleCounts.entrySet().stream()
+                .filter(e -> e.getValue() > 0)
+                .max(Map.Entry.comparingByValue());
+
+        if (dominantTopRole.isPresent()) {
+            // Check if it's truly dominant (not tied with others)
+            long maxCount = dominantTopRole.get().getValue();
+            long numRolesWithMax = topRoleCounts.values().stream().filter(c -> c == maxCount).count();
+            if (numRolesWithMax == 1) {
+                return dominantTopRole.get().getKey();
+            }
+        }
+
+        // Step 5: Total score per role as tiebreaker
+        Map<MainPosition, Integer> totalScores = roleGroups.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        e -> e.getValue().stream().mapToInt(pos -> positions.getOrDefault(pos, 0)).sum()
+                ));
+
+        return totalScores.entrySet().stream()
+                .filter(e -> e.getValue() > 0)
                 .max(Map.Entry.comparingByValue())
-                .map(entry -> MainPosition.valueOf(entry.getKey()))
+                .map(Map.Entry::getKey)
                 .orElse(MainPosition.UNKNOWN);
     }
-
 }

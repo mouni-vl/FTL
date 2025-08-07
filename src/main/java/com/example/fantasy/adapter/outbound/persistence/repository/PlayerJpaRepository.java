@@ -16,26 +16,26 @@ import java.util.Optional;
 public interface PlayerJpaRepository extends BaseRepository<PlayerEntity, Long>, JpaSpecificationExecutor<PlayerEntity> {
     
     // Find methods that respect soft delete
-    @Query("SELECT p FROM PlayerEntity p WHERE p.deleted = false AND p.mainPosition = ?1")
+    @Query("SELECT p FROM PlayerEntity p WHERE p.nfe = false AND p.mainPosition = ?1")
     List<PlayerEntity> findByMainPosition(MainPosition mainPosition);
     
-    @Query("SELECT p FROM PlayerEntity p WHERE p.deleted = false AND p.fmId = ?1")
+    @Query("SELECT p FROM PlayerEntity p WHERE p.nfe = false AND p.fmId = ?1")
     Optional<PlayerEntity> findByFmId(Integer fmId);
     
-    @Query("SELECT p FROM PlayerEntity p WHERE p.deleted = false AND p.availabilityStatus = ?1")
+    @Query("SELECT p FROM PlayerEntity p WHERE p.nfe = false AND p.availabilityStatus = ?1")
     List<PlayerEntity> findByAvailabilityStatus(String status);
     
     // Default findById and findAll methods should also respect soft delete
     @Override
-    @Query("SELECT p FROM PlayerEntity p WHERE p.deleted = false AND p.id = ?1")
+    @Query("SELECT p FROM PlayerEntity p WHERE p.nfe = false AND p.id = ?1")
     Optional<PlayerEntity> findById(Long id);
     
     @Override
-    @Query("SELECT p FROM PlayerEntity p WHERE p.deleted = false")
+    @Query("SELECT p FROM PlayerEntity p WHERE p.nfe = false")
     List<PlayerEntity> findAll();
 
     @Override
     @Modifying
-    @Query("UPDATE PlayerEntity p SET p.deleted = true WHERE p.id = :id")
+    @Query("UPDATE PlayerEntity p SET p.nfe = true WHERE p.id = :id")
     void softDeleteById(@Param("id") Long id);
 }

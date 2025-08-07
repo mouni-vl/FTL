@@ -1,4 +1,4 @@
--- V0.2__create_players_table.sql
+-- V0.3__create_players_table.sql
 
 CREATE TABLE player
 (
@@ -8,18 +8,18 @@ CREATE TABLE player
     first_name          VARCHAR(50)  NOT NULL,                     -- “First Name”
     second_name         VARCHAR(50)  NOT NULL,                     -- “Second Name”
     full_name           VARCHAR(100) NOT NULL,                     -- “Name”
-    photo_url            VARCHAR(255),
+    photo_url           VARCHAR(255),
     date_of_birth       DATE         NOT NULL,                     -- “Date Of Birth”
     city_of_birth       VARCHAR(50) NULL,                          -- “City Of Birth”
 
-    permanent_club      VARCHAR(100) NULL,                         -- “Person > Permanent Club”
-    based_club          VARCHAR(100) NULL,                         -- “Person > Based Club”
-    loan_club           VARCHAR(100) NULL,                         -- “Person > Loan Club”
+    permanent_club      BIGINT NULL,                               -- “Person > Permanent Club”
+    based_club          BIGINT NULL,                               -- “Person > Based Club”
+    loan_club           BIGINT NULL,                               -- “Person > Loan Club”
     squad_number        SMALLINT NULL,                             -- “PersonClubContract > Squad Number”
 
-    nationality_1       VARCHAR(50) NULL,                          -- “Person > Nationality”
-    nationality_2       VARCHAR(50) NULL,                          -- “Person > Second Nationality”
-    nationality_3       VARCHAR(50) NULL,                          -- “Person > Third Nationality”
+    nationality_1       BIGINT NULL,                               -- “Person > Nationality”
+    nationality_2       BIGINT NULL,                               -- “Person > Second Nationality”
+    nationality_3       BIGINT NULL,                               -- “Person > Third Nationality”
 
     current_ability     SMALLINT NULL,                             -- “PlayerAttribute > Current Ability”
     potential_ability   SMALLINT NULL,                             -- “PlayerAttribute > Potential Ability”
@@ -35,5 +35,9 @@ CREATE TABLE player
     updated_by          VARCHAR(50) NULL,                          -- e.g. username that last modified
 
     nfe                 BOOLEAN               DEFAULT FALSE,       -- “Person > NFE”
-    deleted             BOOLEAN               DEFAULT FALSE        -- “Is person deleted”
+
+    -- Foreign key constraints for clubs
+    CONSTRAINT fk_permanent_club FOREIGN KEY (permanent_club) REFERENCES club(id),
+    CONSTRAINT fk_based_club     FOREIGN KEY (based_club)     REFERENCES club(id),
+    CONSTRAINT fk_loan_club      FOREIGN KEY (loan_club)      REFERENCES club(id)
 );

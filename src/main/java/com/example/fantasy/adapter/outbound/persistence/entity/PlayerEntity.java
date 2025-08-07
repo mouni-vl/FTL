@@ -43,22 +43,22 @@ public class PlayerEntity extends SoftDeletableEntity {
     private String cityOfBirth;
     
     @Column(name = "permanent_club")
-    private String permanentClub;
+    private Long permanentClub;
     
     @Column(name = "based_club")
-    private String basedClub;
+    private Long basedClub;
     
     @Column(name = "loan_club")
-    private String loanClub;
+    private Long loanClub;
     
     @Column(name = "nationality_1")
-    private String nationality1;
+    private Long nationality1;
     
     @Column(name = "nationality_2")
-    private String nationality2;
+    private Long nationality2;
     
     @Column(name = "nationality_3")
-    private String nationality3;
+    private Long nationality3;
     
     @Column(name = "squad_number")
     private Integer squadNumber;

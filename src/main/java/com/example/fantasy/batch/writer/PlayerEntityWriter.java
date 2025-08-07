@@ -8,6 +8,7 @@ import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class PlayerEntityWriter implements ItemWriter<Player> {
 
     @Override
     public void write(Chunk<? extends Player> chunk) throws Exception {
-        List<Player> players = (List<Player>) chunk.getItems();
+        List<? extends Player> players = chunk.getItems();
 
         if (players.isEmpty()) {
             log.info("No players to save");
@@ -39,8 +40,14 @@ public class PlayerEntityWriter implements ItemWriter<Player> {
                         log.debug("Saving player: {} (FM ID: {})", player.getFullName(), player.getFmId()));
             }
 
+            // Create a new list of Player objects to avoid casting issues
+            List<Player> playerList = new ArrayList<>(players.size());
+            for (Player player : players) {
+                playerList.add(player);
+            }
+
             // Save all players
-            playerRepository.saveAll(players);
+            playerRepository.saveAll(playerList);
 
             log.info("Successfully saved {} players to database", players.size());
         } catch (Exception e) {

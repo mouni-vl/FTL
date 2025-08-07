@@ -50,6 +50,19 @@ public class JpaPlayerAdapter implements PlayerRepository {
     }
 
     @Override
+    public List<Player> saveAll(List<Player> players){
+        log.debug("Saving {} players", players.size());
+        List<PlayerEntity> entities = players.stream()
+                .map(mapper::toSource)
+                .collect(Collectors.toList());
+
+        List<PlayerEntity> savedEntities = playerRepo.saveAll(entities);
+        return savedEntities.stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<Player> findAll(PlayerSearchCriteria criteria, int page, int size) {
         Specification<PlayerEntity> spec = createEntitySpecification(criteria);
         Pageable pageable = PageRequest.of(page, size);

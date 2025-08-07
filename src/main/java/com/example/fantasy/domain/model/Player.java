@@ -56,7 +56,7 @@ public class Player {
     private Integer totalPoints;
     private Boolean active;
 
-    private Boolean deleted;
+    //private Boolean deleted;
 
     // Audit info
     private Instant createdAt;

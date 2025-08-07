@@ -1,4 +1,4 @@
--- V0.4_create_clubs-table.sql
+-- V0.2_create_clubs-table.sql
 
 CREATE TABLE club (
                       id BIGINT NOT NULL PRIMARY KEY,

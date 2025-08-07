@@ -36,7 +36,7 @@ public class PlayerCsvRecordFieldSetMapper implements FieldSetMapper<PlayerCsvRe
                     .secondNationalityName(fs.readString("secondNationalityName"))
                     .thirdNationalityId(safeReadLong(fs,"thirdNationalityId"))
                     .thirdNationalityName(fs.readString("thirdNationalityName"))
-                    .cityOfBirthId(Integer.valueOf(fs.readString("cityOfBirthId")))
+                    .cityOfBirthId(safeReadInt(fs,"cityOfBirthId"))
                     .cityOfBirth(fs.readString("cityOfBirth"))
                     .gk(safeReadInt(fs,"gk"))
                     .dl(safeReadInt(fs,"dl"))

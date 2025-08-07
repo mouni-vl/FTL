@@ -5,10 +5,10 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class SoftDeletableEntity extends BaseEntity {
-    @Column(name="deleted", nullable=false)
-    private Boolean deleted = false;
+    @Column(name="nfe", nullable=false)
+    private Boolean nfe = false;
 
     public void softDelete() {
-        this.deleted = true;
+        this.nfe = true;
     }
 }

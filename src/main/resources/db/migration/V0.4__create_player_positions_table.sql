@@ -1,4 +1,4 @@
--- V0.3__create_player_positions_table.sql
+-- V0.4__create_player_positions_table.sql
 
 CREATE TABLE player_position
 (
