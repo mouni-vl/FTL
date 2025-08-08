@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class PlayerCsvRecord {
     private String config;
 
-    private Integer fmId;
+    private Long fmId;
     private String firstName;
     private String secondName;
     private String fullName;
@@ -25,6 +25,7 @@ public class PlayerCsvRecord {
     private String loanClubName;
 
     private String dateOfBirth;
+    private String yearOfBirth;
 
     private Long nationalityId;
     private String nationalityName;

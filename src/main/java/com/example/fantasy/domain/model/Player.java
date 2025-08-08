@@ -18,12 +18,13 @@ import java.util.Map;
 public class Player {
     private Long id;
 
-    private Integer fmId;
+    //private Integer fmId;
     private String firstName;
     private String secondName;
     private String fullName;
     private String photoUrl;
     private LocalDate dateOfBirth;
+    private Integer yearOfBirth;
     private String cityOfBirth;
 
     // Club information
@@ -38,7 +39,6 @@ public class Player {
     private Long nationality3;
 
     // Stats
-    private Boolean nfe;
     private Integer currentAbility;
     private Integer potentialAbility;
     private Integer leftFoot;
@@ -59,6 +59,7 @@ public class Player {
     //private Boolean deleted;
 
     // Audit info
+    private Boolean nfe;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;

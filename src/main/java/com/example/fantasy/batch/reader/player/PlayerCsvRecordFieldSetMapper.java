@@ -1,10 +1,13 @@
-package com.example.fantasy.batch.reader;
+package com.example.fantasy.batch.reader.player;
 
 import com.example.fantasy.batch.csvRecord.PlayerCsvRecord;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.validation.BindException;
+
+import static com.example.fantasy.shared.utils.NumberUtils.safeReadInt;
+import static com.example.fantasy.shared.utils.NumberUtils.safeReadLong;
 
 @Slf4j
 public class PlayerCsvRecordFieldSetMapper implements FieldSetMapper<PlayerCsvRecord> {
@@ -19,7 +22,7 @@ public class PlayerCsvRecordFieldSetMapper implements FieldSetMapper<PlayerCsvRe
         try {
             return PlayerCsvRecord.builder()
                     .config(fs.readString("config"))
-                    .fmId(safeReadInt(fs,"fmId"))
+                    .fmId(safeReadLong(fs,"fmId"))
                     .firstName(fs.readString("firstName"))
                     .secondName(fs.readString("secondName"))
                     .fullName(fs.readString("fullName"))
@@ -30,6 +33,7 @@ public class PlayerCsvRecordFieldSetMapper implements FieldSetMapper<PlayerCsvRe
                     .loanClubId(safeReadLong(fs,"loanClubId"))
                     .loanClubName(fs.readString("loanClubName"))
                     .dateOfBirth(fs.readString("dateOfBirth"))
+                    .yearOfBirth(fs.readString("yearOfBirth"))
                     .nationalityId(safeReadLong(fs,"nationalityId"))
                     .nationalityName(fs.readString("nationalityName"))
                     .secondNationalityId(safeReadLong(fs,"secondNationalityId"))
@@ -63,26 +67,6 @@ public class PlayerCsvRecordFieldSetMapper implements FieldSetMapper<PlayerCsvRe
         } catch (Exception e) {
             log.error("Failed to map FieldSet to PlayerCsvRecord: {}", fs, e);
             throw new BindException(fs, "PlayerCsvRecord");
-        }
-    }
-
-    private Integer safeReadInt(FieldSet fs, String column) {
-        try {
-            String value = fs.readString(column);
-            return (value == null || value.isBlank()) ? null : Integer.valueOf(value);
-        } catch (NumberFormatException e) {
-            log.warn("Invalid integer in column {}: '{}'", column, fs.readString(column));
-            return null;
-        }
-    }
-
-    private Long safeReadLong(FieldSet fs, String column) {
-        try {
-            String value = fs.readString(column);
-            return (value == null || value.isBlank()) ? null : Long.valueOf(value);
-        } catch (NumberFormatException e) {
-            log.warn("Invalid long in column {}: '{}'", column, fs.readString(column));
-            return null;
         }
     }
 }

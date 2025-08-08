@@ -40,11 +40,11 @@ public interface PlayerEntityMapper extends BaseMapstructMapper<Player, PlayerEn
      */
     default PlayerEntity mergeToEntity(PlayerEntity existingEntity, Player player) {
         // Update all fields except ID (and possibly audit fields if they should be auto-updated)
-        existingEntity.setFmId(player.getFmId());
         existingEntity.setFirstName(player.getFirstName());
         existingEntity.setSecondName(player.getSecondName());
         existingEntity.setFullName(player.getFullName());
         existingEntity.setDateOfBirth(player.getDateOfBirth());
+        existingEntity.setYearOfBirth(player.getYearOfBirth());
         existingEntity.setCityOfBirth(player.getCityOfBirth());
         existingEntity.setPermanentClub(player.getPermanentClub());
         existingEntity.setBasedClub(player.getBasedClub());

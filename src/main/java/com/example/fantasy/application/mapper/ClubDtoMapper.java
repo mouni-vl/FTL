@@ -40,7 +40,7 @@ public interface ClubDtoMapper extends BaseMapstructMapper<Club, ClubDto> {
     @Override
 //    @Mapping(target = "captain", ignore = true)
 //    @Mapping(target = "viceCaptain", ignore = true)
-//    @Mapping(target = "stadium", ignore = true)
+    @Mapping(target = "stadium", ignore = true)
 //    @Mapping(target = "createdAt", ignore = true)
 //    @Mapping(target = "updatedAt", ignore = true)
 //    @Mapping(target = "createdBy", ignore = true)

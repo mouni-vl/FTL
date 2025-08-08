@@ -1,11 +1,19 @@
 package com.example.fantasy.domain.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+import java.time.Instant;
+
+/**
+ * Stadium domain model representing a football stadium
+ */
+@Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Stadium {
     private Long id;
     private String name;

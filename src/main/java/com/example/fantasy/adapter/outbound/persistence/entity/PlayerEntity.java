@@ -24,9 +24,6 @@ import java.util.Set;
 @Builder
 public class PlayerEntity extends SoftDeletableEntity {
     
-    @Column(name = "fm_id", nullable = false, unique = true)
-    private Integer fmId;
-    
     @Column(name = "first_name", nullable = false)
     private String firstName;
     
@@ -36,8 +33,11 @@ public class PlayerEntity extends SoftDeletableEntity {
     @Column(name = "full_name", nullable = false)
     private String fullName;
     
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "date_of_birth", nullable = true)
     private LocalDate dateOfBirth;
+
+    @Column(name = "date_of_birth", nullable = true)
+    private Integer yearOfBirth;
     
     @Column(name = "city_of_birth")
     private String cityOfBirth;

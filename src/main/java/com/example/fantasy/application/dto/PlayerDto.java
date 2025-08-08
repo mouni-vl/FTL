@@ -17,12 +17,13 @@ import java.util.Set;
 @AllArgsConstructor
 public class PlayerDto {
     private Long id;
-    private Integer fmId;
+    //private Integer fmId;
     private String firstName;
     private String secondName;
     private String fullName;
     private LocalDate dateOfBirth;
     private String cityOfBirth;
+    private Integer yearOfBirth;
     private Long permanentClub;
     private Long basedClub;
     private Long loanClub;

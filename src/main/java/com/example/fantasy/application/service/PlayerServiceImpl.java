@@ -36,8 +36,8 @@ public class PlayerServiceImpl {
         return playerRepository.findById(id);
     }
     
-    public Optional<Player> findByFmId(Integer fmId) {
-        return playerRepository.findByFmId(fmId);
+    public Optional<Player> findByFmId(Long fmId) {
+        return playerRepository.findById(fmId);
     }
     
     @Transactional
@@ -52,7 +52,7 @@ public class PlayerServiceImpl {
             throw new IllegalArgumentException("Cannot update player with null ID");
         }
         
-        log.debug("Updating player with ID: {}, fmId: {}", player.getId(), player.getFmId());
+        log.debug("Updating player with ID: {}, fmId: {}", player.getId(), player.getId());
         
         Optional<Player> existingPlayerOpt = playerRepository.findById(player.getId());
         if (existingPlayerOpt.isEmpty()) {

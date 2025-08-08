@@ -11,25 +11,37 @@ import java.time.Instant;
 @AllArgsConstructor
 public class Club {
     private Long id;
-    private Integer fmId;
+
     private String name;
     private String shortName;
+    private String sixLetterName;
     private String threeLetterName;
+    private String altThreeLetterName;
+
+
+    private String nickname;
+    private String officialHashtag;
     private String logoUrl;
     private Integer yearFounded;
 
-    private String footballingNation;
+    private Integer footballingNation;
+    private Integer country;
+    private Integer city;
 
+    private Integer division;
     private Integer reputation;
     private String likelyFinishingGroup;
 
-    private Player captain;
-    private Player viceCaptain;
+    private Integer captain;
+    private Integer viceCaptain;
 
     private Integer ca16;
-    private String officialHashtag;
+    private String primaryColor;
+    private String secondaryColor;
 
-    private String nickname;
+    private Boolean extinct;
+    private Boolean nfe;
+
 
     private Stadium stadium;
 

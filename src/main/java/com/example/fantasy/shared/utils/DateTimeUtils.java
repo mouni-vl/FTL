@@ -1,32 +1,35 @@
 package com.example.fantasy.shared.utils;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-/**
- * Utility class for date and time operations
- */
+@Slf4j
 public final class DateTimeUtils {
-    
-    private DateTimeUtils() {
-        // Private constructor to prevent instantiation
+        private DateTimeUtils() {}
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    public static LocalDate parseDate(String dateString) {
+        if (!StringUtils.hasText(dateString)) {
+            return null;
+        }
+        try {
+            return LocalDate.parse(dateString, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            log.warn("Invalid date format: {}", dateString);
+            return null;
+        }
     }
-    
-    /**
-     * Get current UTC time as Instant
-     * @return current UTC time
-     */
     public static Instant nowUtc() {
         return Instant.now();
     }
-    
-    /**
-     * Convert Instant to LocalDate in the specified time zone
-     * @param instant the instant to convert
-     * @param zone the time zone
-     * @return the LocalDate in the specified time zone
-     */
+
     public static LocalDate atZone(Instant instant, ZoneId zone) {
         return instant.atZone(zone).toLocalDate();
     }

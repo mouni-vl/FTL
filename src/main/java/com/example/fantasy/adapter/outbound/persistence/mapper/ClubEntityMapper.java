@@ -52,7 +52,6 @@ public abstract class ClubEntityMapper implements BaseMapstructMapper<Club, Club
         }
 
         // Update scalar properties
-        existingEntity.setFmId(updatedDomain.getFmId());
         existingEntity.setName(updatedDomain.getName());
         existingEntity.setShortName(updatedDomain.getShortName());
         existingEntity.setThreeLetterName(updatedDomain.getThreeLetterName());
@@ -66,39 +65,39 @@ public abstract class ClubEntityMapper implements BaseMapstructMapper<Club, Club
         existingEntity.setNickname(updatedDomain.getNickname());
 
         // Update relationships with proper error handling
-        if (updatedDomain.getCaptain() != null && updatedDomain.getCaptain().getId() != null) {
-            playerRepository.findById(updatedDomain.getCaptain().getId())
-                .ifPresent(existingEntity::setCaptain);
-        } else {
-            existingEntity.setCaptain(null);
-        }
+//        if (updatedDomain.getCaptain() != null && updatedDomain.getCaptain().getId() != null) {
+//            playerRepository.findById(updatedDomain.getCaptain().getId())
+//                .ifPresent(existingEntity::setCaptain);
+//        } else {
+//            existingEntity.setCaptain(null);
+//        }
+//
+//        if (updatedDomain.getViceCaptain() != null && updatedDomain.getViceCaptain().getId() != null) {
+//            playerRepository.findById(updatedDomain.getViceCaptain().getId())
+//                .ifPresent(existingEntity::setViceCaptain);
+//        } else {
+//            existingEntity.setViceCaptain(null);
+//        }
 
-        if (updatedDomain.getViceCaptain() != null && updatedDomain.getViceCaptain().getId() != null) {
-            playerRepository.findById(updatedDomain.getViceCaptain().getId())
-                .ifPresent(existingEntity::setViceCaptain);
-        } else {
-            existingEntity.setViceCaptain(null);
-        }
-
-        if (updatedDomain.getStadium() != null && updatedDomain.getStadium().getId() != null) {
-            stadiumRepository.findById(updatedDomain.getStadium().getId())
-                .ifPresent(stadium -> {
-                    // Remove from previous stadium's clubs collection if exists
-                    if (existingEntity.getStadium() != null) {
-                        existingEntity.getStadium().getClubs().remove(existingEntity);
-                    }
-                    
-                    // Set new stadium and add to its clubs collection
-                    existingEntity.setStadium(stadium);
-                    stadium.getClubs().add(existingEntity);
-                });
-        } else {
-            // Remove from stadium's clubs collection if exists
-            if (existingEntity.getStadium() != null) {
-                existingEntity.getStadium().getClubs().remove(existingEntity);
-            }
-            existingEntity.setStadium(null);
-        }
+//        if (updatedDomain.getStadium() != null && updatedDomain.getStadium().getId() != null) {
+//            stadiumRepository.findById(updatedDomain.getStadium().getId())
+//                .ifPresent(stadium -> {
+//                    // Remove from previous stadium's clubs collection if exists
+//                    if (existingEntity.getStadium() != null) {
+//                        existingEntity.getStadium().getClubs().remove(existingEntity);
+//                    }
+//
+//                    // Set new stadium and add to its clubs collection
+//                    existingEntity.setStadium(stadium);
+//                    stadium.getClubs().add(existingEntity);
+//                });
+//        } else {
+//            // Remove from stadium's clubs collection if exists
+//            if (existingEntity.getStadium() != null) {
+//                existingEntity.getStadium().getClubs().remove(existingEntity);
+//            }
+//            existingEntity.setStadium(null);
+//        }
 
         return existingEntity;
     }

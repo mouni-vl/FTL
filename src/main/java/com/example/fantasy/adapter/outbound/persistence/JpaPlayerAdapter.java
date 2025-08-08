@@ -144,7 +144,7 @@ public class JpaPlayerAdapter implements PlayerRepository {
             throw new IllegalArgumentException("Cannot update a player without an ID");
         }
         
-        log.debug("Updating player ID: {}, fmId: {}", player.getId(), player.getFmId());
+        log.debug("Updating player ID: {}, fmId: {}", player.getId(), player.getId());
         
         Optional<PlayerEntity> existingEntityOpt = playerRepo.findById(player.getId());
         if (existingEntityOpt.isEmpty()) {

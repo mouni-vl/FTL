@@ -1,26 +1,37 @@
 package com.example.fantasy.adapter.outbound.persistence.mapper;
 
 import com.example.fantasy.adapter.outbound.persistence.entity.StadiumEntity;
-import com.example.fantasy.core.common.transformer.BaseMapstructMapper;
 import com.example.fantasy.domain.model.Stadium;
-import org.mapstruct.*;
+import org.springframework.stereotype.Component;
 
-@Mapper(
-    componentModel = "spring"
-)
-public interface StadiumEntityMapper extends BaseMapstructMapper<Stadium, StadiumEntity> {
+/**
+ * Mapper for converting between Stadium domain model and StadiumEntity
+ */
+@Component
+public class StadiumEntityMapper {
 
-    @Mapping(target = "clubs", ignore = true)
-    @Override
-    StadiumEntity toSource(Stadium domain);
+    public Stadium toDomain(StadiumEntity entity) {
+        if (entity == null) {
+            return null;
+        }
 
-    @Override
-    Stadium toDomain(StadiumEntity entity);
+        return Stadium.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .capacity(entity.getCapacity())
+                .build();
+    }
 
-//    @Mapping(target = "clubs", ignore = true)
-//    @Override
-//    StadiumEntity updateSource(@MappingTarget StadiumEntity target, Stadium source);
+    public StadiumEntity toSource(Stadium domain) {
+        if (domain == null) {
+            return null;
+        }
 
-    @Override
-    Stadium updateDomain(@MappingTarget Stadium target, StadiumEntity source);
+        StadiumEntity entity = new StadiumEntity();
+        entity.setId(domain.getId());
+        entity.setName(domain.getName());
+        entity.setCapacity(domain.getCapacity());
+
+        return entity;
+    }
 }

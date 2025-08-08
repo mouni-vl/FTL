@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -13,17 +15,40 @@ import lombok.NoArgsConstructor;
 public class ClubDto {
     private Long id;
     private Integer fmId;
+
     private String name;
     private String shortName;
     private String threeLetterName;
+    private String sixLetterName;
+    private String altThreeLetterName;
+
+    private String nickname;
+    private String officialHashtag;
+    private String logoUrl;
     private Integer yearFounded;
-    private String footballingNation;
+
+    private Integer footballingNation;
+    private Integer country;
+    private Integer city;
+
+    private Integer division;
     private Integer reputation;
     private String likelyFinishingGroup;
-    private LightPlayerDto captain;
-    private LightPlayerDto viceCaptain;
+
+    private Integer captain;
+    private Integer viceCaptain;
+
     private Integer ca16;
-    private String officialHashtag;
-    private String nickname;
-    private Long stadiumId;
+    private String primaryColor;
+    private String secondaryColor;
+
+    private Boolean extinct;
+    private Boolean nfe;
+
+    private StadiumDto stadium;
+
+    private Instant createdAt;
+    private Instant updatedAt;
+    private String createdBy;
+    private String updatedBy;
 }

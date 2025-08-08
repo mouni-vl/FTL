@@ -1,4 +1,4 @@
-package com.example.fantasy.batch.processor;
+package com.example.fantasy.batch.processor.player;
 
 import com.example.fantasy.batch.csvRecord.PlayerCsvRecord;
 import com.example.fantasy.domain.model.MainPosition;
@@ -9,23 +9,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.example.fantasy.shared.utils.DateTimeUtils.nowUtc;
+import static com.example.fantasy.shared.utils.DateTimeUtils.parseDate;
+import static com.example.fantasy.shared.utils.NumberUtils.parseBoolean;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class PlayerItemProcessor implements ItemProcessor<PlayerCsvRecord, Player> {
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final String BATCH = "Import-Batch";
 
     @Override
@@ -38,7 +36,7 @@ public class PlayerItemProcessor implements ItemProcessor<PlayerCsvRecord, Playe
 
         try {
             Player player = Player.builder()
-                    .fmId(record.getFmId())
+                    .id(record.getFmId())
                     .firstName(record.getFirstName())
                     .secondName(record.getSecondName())
                     .fullName(StringUtils.hasText(record.getFullName()) ? 
@@ -74,8 +72,8 @@ public class PlayerItemProcessor implements ItemProcessor<PlayerCsvRecord, Playe
                     .active(true)
                     .availabilityStatus("Available")
 
-                    .createdAt(Instant.now())
-                    .updatedAt(Instant.now())
+                    .createdAt(nowUtc())
+                    .updatedAt(nowUtc())
                     .createdBy(BATCH)
                     .updatedBy(BATCH)
                     .build();
@@ -101,47 +99,6 @@ public class PlayerItemProcessor implements ItemProcessor<PlayerCsvRecord, Playe
         }
 
         return true;
-    }
-
-    private LocalDate parseDate(String dateString) {
-        if (!StringUtils.hasText(dateString)) {
-            return null;
-        }
-        try {
-            return LocalDate.parse(dateString, DATE_FORMATTER);
-        } catch (DateTimeParseException e) {
-            log.warn("Invalid date format: {}", dateString);
-            return null;
-        }
-    }
-
-    private Integer parseInteger(String value) {
-        if (!StringUtils.hasText(value)) {
-            return null;
-        }
-        try {
-            return Integer.parseInt(value.trim());
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    private Double parseDouble(String value) {
-        if (!StringUtils.hasText(value)) {
-            return null;
-        }
-        try {
-            return Double.parseDouble(value.trim());
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    private Boolean parseBoolean(Integer value) {
-        if (value == null) {
-            return false;
-        }
-        return value == 1;
     }
 
     private Map<String, Integer> extractPositions(PlayerCsvRecord record) {

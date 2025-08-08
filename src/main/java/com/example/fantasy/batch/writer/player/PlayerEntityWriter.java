@@ -1,4 +1,4 @@
-package com.example.fantasy.batch.writer;
+package com.example.fantasy.batch.writer.player;
 
 import com.example.fantasy.application.port.out.PlayerRepository;
 import com.example.fantasy.domain.model.Player;
@@ -37,7 +37,7 @@ public class PlayerEntityWriter implements ItemWriter<Player> {
             // Log first few players for debugging
             if (log.isDebugEnabled()) {
                 players.stream().limit(5).forEach(player ->
-                        log.debug("Saving player: {} (FM ID: {})", player.getFullName(), player.getFmId()));
+                        log.debug("Saving player: {} (FM ID: {})", player.getFullName(), player.getId()));
             }
 
             // Create a new list of Player objects to avoid casting issues

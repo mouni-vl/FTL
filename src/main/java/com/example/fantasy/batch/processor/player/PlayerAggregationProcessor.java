@@ -1,6 +1,6 @@
-package com.example.fantasy.batch.processor;
+package com.example.fantasy.batch.processor.player;
 
-import com.example.fantasy.batch.reader.PlayerCsvReader;
+import com.example.fantasy.batch.reader.player.PlayerCsvReader;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 

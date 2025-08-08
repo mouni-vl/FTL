@@ -30,16 +30,16 @@ public interface PlayerDtoMapper extends BaseMapstructMapper<Player, PlayerDto> 
             return domain;
         }
 
-        log.debug("Updating domain object with DTO. Domain ID: {}, original fmId: {}, dto fmId: {}", 
-                domain.getId(), domain.getFmId(), dto.getFmId());
+        log.debug("Updating domain object with DTO. Domain ID: {}", domain.getId());
         
         // Update fields from DTO (only if not null)
-        if (dto.getFmId() != null) domain.setFmId(dto.getFmId());
+        //if (dto.getFmId() != null) domain.setFmId(dto.getFmId());
         if (dto.getFirstName() != null) domain.setFirstName(dto.getFirstName());
         if (dto.getSecondName() != null) domain.setSecondName(dto.getSecondName());
         if (dto.getFullName() != null) domain.setFullName(dto.getFullName());
         if (dto.getDateOfBirth() != null) domain.setDateOfBirth(dto.getDateOfBirth());
         if (dto.getCityOfBirth() != null) domain.setCityOfBirth(dto.getCityOfBirth());
+        if (dto.getYearOfBirth() != null) domain.setYearOfBirth(dto.getYearOfBirth());
         if (dto.getPermanentClub() != null) domain.setPermanentClub(dto.getPermanentClub());
         if (dto.getBasedClub() != null) domain.setBasedClub(dto.getBasedClub());
         if (dto.getLoanClub() != null) domain.setLoanClub(dto.getLoanClub());

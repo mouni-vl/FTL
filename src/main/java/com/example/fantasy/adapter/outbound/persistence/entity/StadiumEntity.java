@@ -1,29 +1,35 @@
 package com.example.fantasy.adapter.outbound.persistence.entity;
 
-import com.example.fantasy.core.persistence.domain.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * JPA entity representing a Stadium
+ */
 @Entity
 @Table(name = "stadium")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-public class StadiumEntity {
+@NoArgsConstructor
+@ToString(callSuper = true)
+public class StadiumEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(name = "capacity")
+    @Column
     private Integer capacity;
-    
-    @OneToMany(mappedBy = "stadium")
+
+    @OneToMany(mappedBy = "stadium", cascade = CascadeType.ALL, orphanRemoval = false)
     private Set<ClubEntity> clubs = new HashSet<>();
 }
