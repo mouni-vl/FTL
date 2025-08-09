@@ -19,8 +19,8 @@ public interface PlayerJpaRepository extends BaseRepository<PlayerEntity, Long>,
     @Query("SELECT p FROM PlayerEntity p WHERE p.nfe = false AND p.mainPosition = ?1")
     List<PlayerEntity> findByMainPosition(MainPosition mainPosition);
     
-    @Query("SELECT p FROM PlayerEntity p WHERE p.nfe = false AND p.fmId = ?1")
-    Optional<PlayerEntity> findByFmId(Integer fmId);
+//    @Query("SELECT p FROM PlayerEntity p WHERE p.nfe = false AND p.fmId = ?1")
+//    Optional<PlayerEntity> findByFmId(Integer fmId);
     
     @Query("SELECT p FROM PlayerEntity p WHERE p.nfe = false AND p.availabilityStatus = ?1")
     List<PlayerEntity> findByAvailabilityStatus(String status);

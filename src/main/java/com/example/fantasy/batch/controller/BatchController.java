@@ -32,9 +32,12 @@ public class BatchController {
 
     private final JobLauncher jobLauncher;
     private final Job importPlayerCsvJob;
+    private final Job importClubCsvJob;
 
-    @PostMapping(value = "/import-players", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Map<String, Object>> importPlayers(@RequestParam("file") MultipartFile file) {
+    @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, Object>> importData(
+            @RequestParam("type") ImportType importType,
+            @RequestParam("file") MultipartFile file) {
         Map<String, Object> response = new HashMap<>();
 
         if (file.isEmpty()) {
@@ -42,6 +45,11 @@ public class BatchController {
             response.put("message", "Please upload a CSV file");
             return ResponseEntity.badRequest().body(response);
         }
+
+        Job job = switch (importType) {
+            case PLAYER -> importPlayerCsvJob;
+            case CLUB -> importClubCsvJob;
+        };
 
         try {
             // Create temp directory if it doesn't exist
@@ -69,8 +77,9 @@ public class BatchController {
                     .toJobParameters();
 
             // Launch the job
-            log.info("Launching import job with parameters: {}", jobParameters);
-            JobExecution jobExecution = jobLauncher.run(importPlayerCsvJob, jobParameters);
+            log.info("Launching {} import job with parameters: {}", job, jobParameters);
+
+            JobExecution jobExecution = jobLauncher.run(job, jobParameters);
 
             // Prepare response
             response.put("success", true);
@@ -92,5 +101,10 @@ public class BatchController {
             response.put("message", "Failed to launch import job: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
+    }
+
+    public enum ImportType {
+        PLAYER,
+        CLUB
     }
 }

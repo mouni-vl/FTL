@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
@@ -38,7 +39,7 @@ public class ClubDto {
     private Integer captain;
     private Integer viceCaptain;
 
-    private Integer ca16;
+    private BigDecimal ca16;
     private String primaryColor;
     private String secondaryColor;
 

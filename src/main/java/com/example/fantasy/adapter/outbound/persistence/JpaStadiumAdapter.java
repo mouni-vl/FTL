@@ -8,6 +8,7 @@ import com.example.fantasy.domain.model.Stadium;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -38,8 +39,11 @@ public class JpaStadiumAdapter implements StadiumRepository {
     }
 
     @Override
+    //If you want stadiums to be persisted even when the club insert fails
+    //@Transactional(propagation = Propagation.REQUIRES_NEW)
     public Stadium save(Stadium stadium) {
         StadiumEntity saved = jpaRepo.save(mapper.toSource(stadium));
+        jpaRepo.flush();
         return mapper.toDomain(saved);
     }
 

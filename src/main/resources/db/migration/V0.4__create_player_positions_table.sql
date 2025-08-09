@@ -2,7 +2,7 @@
 
 CREATE TABLE player_position
 (
-    player_id     BIGINT        NOT NULL PRIMARY KEY, -- FK + PK = one-to-one
+    player_id     INTEGER        NOT NULL PRIMARY KEY, -- FK + PK = one-to-one
     main_position VARCHAR(3) NOT NULL CHECK (main_position IN ('GK', 'DEF', 'MID', 'FWD')),
 
     -- Positional ratings (0 to 20 scale)

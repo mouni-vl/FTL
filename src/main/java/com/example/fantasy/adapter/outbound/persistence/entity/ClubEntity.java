@@ -1,75 +1,89 @@
 package com.example.fantasy.adapter.outbound.persistence.entity;
 
+import com.example.fantasy.core.persistence.domain.BaseEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
+import java.math.BigDecimal;
 
-/**
- * JPA entity representing a football club
- */
 @Entity
 @Table(name = "club")
 @Getter
 @Setter
-@NoArgsConstructor
-@ToString(exclude = {"players"})
-public class ClubEntity {
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor
+public class ClubEntity extends BaseEntity {
+    @Column(name = "fm_id", nullable = false, unique = true)
+    private Long fmId;
 
-    @Id
-    private Long id;
-
-    @Column(nullable = false, unique = true)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "short_name")
+    @Column(name = "short_name", length = 50)
     private String shortName;
 
-    @Column(name = "three_letter_name")
+    @Column(name = "six_letter_name", length = 10)
+    private String sixLetterName;
+
+    @Column(name = "three_letter_name", length = 10)
     private String threeLetterName;
 
-    @Column(name = "footballing_nation")
-    private Integer footballingNation;
+    @Column(name = "alt_three_letter_name", length = 10)
+    private String altThreeLetterName;
 
-    @Column
-    private Integer reputation;
+    @Column(name = "nickname", length = 100)
+    private String nickname;
 
-    @Column(name = "likely_finishing_group")
-    private String likelyFinishingGroup;
-
-    @Column
-    private Integer ca16;
-
-    @Column(name = "official_hashtag")
+    @Column(name = "official_hashtag", length = 50)
     private String officialHashtag;
+
+    @Column(name = "logo_url", length = 255)
+    private String logoUrl;
 
     @Column(name = "year_founded")
     private Integer yearFounded;
 
-    @Column
-    private String nickname;
+    @Column(name = "footballing_nation")
+    private Integer footballingNation;
+
+    @Column(name = "country")
+    private Integer country;
+
+    @Column(name = "city")
+    private Integer city;
+
+    @Column(name = "division_id")
+    private Integer division;
+
+    @Column(name = "reputation")
+    private Integer reputation;
+
+    @Column(name = "likely_finishing_group", length = 50)
+    private String likelyFinishingGroup;
+
+    @Column(name = "captain_id")
+    private Integer captain;
+
+    @Column(name = "vice_captain_id")
+    private Integer viceCaptain;
+
+    @Column(name = "ca16", precision = 5, scale = 2)
+    private BigDecimal ca16;
+
+    @Column(name = "primary_color", length = 20)
+    private String primaryColor;
+
+    @Column(name = "secondary_color", length = 20)
+    private String secondaryColor;
+
+    @Column(name = "extinct")
+    private Boolean extinct;
+
+    @Column(name = "nfe")
+    private Boolean nfe;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stadium_id")
     private StadiumEntity stadium;
-
-    @OneToMany(mappedBy = "permanentClub", cascade = CascadeType.REMOVE)
-    private Set<PlayerEntity> players = new HashSet<>();
-
-    @Column(name = "created_at")
-    private Instant createdAt;
-
-    @Column(name = "updated_at")
-    private Instant updatedAt;
-
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @Column(name = "updated_by")
-    private String updatedBy;
 }
+

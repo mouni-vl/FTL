@@ -36,7 +36,7 @@ public class PlayerEntity extends SoftDeletableEntity {
     @Column(name = "date_of_birth", nullable = true)
     private LocalDate dateOfBirth;
 
-    @Column(name = "date_of_birth", nullable = true)
+    @Column(name = "year_of_birth", nullable = true)
     private Integer yearOfBirth;
     
     @Column(name = "city_of_birth")

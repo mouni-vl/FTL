@@ -122,11 +122,11 @@ public class JpaPlayerAdapter implements PlayerRepository {
                 .map(mapper::toDomain);
     }
     
-    @Override
-    public Optional<Player> findByFmId(Integer fmId) {
-        return playerRepo.findByFmId(fmId)
-                .map(mapper::toDomain);
-    }
+//    @Override
+//    public Optional<Player> findByFmId(Integer fmId) {
+//        return playerRepo.findByFmId(fmId)
+//                .map(mapper::toDomain);
+//    }
 
     @Override
     @Transactional

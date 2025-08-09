@@ -2,6 +2,7 @@
 
 CREATE TABLE club (
                       id                          INTEGER         PRIMARY KEY,
+                      fm_id                       INTEGER         NOT NULL UNIQUE,
 
     -- Identifiers
                       name                        VARCHAR(255)    NOT NULL,
@@ -17,21 +18,21 @@ CREATE TABLE club (
                       year_founded                SMALLINT,
 
     -- Location
-                      footballing_nation          BIGINT NULL,
-                      country                     BIGINT,
-                      city                        BIGINT NULL,
+                      footballing_nation          INTEGER NULL,
+                      country                     INTEGER,
+                      city                        INTEGER NULL,
 
     -- Competition & Reputation
-                      division_id                 BIGINT,
+                      division_id                 INTEGER,
                       reputation                  SMALLINT,
                       likely_finishing_group      VARCHAR(255),
 
     -- Players
-                      captain_id                  BIGINT         /*REFERENCES player(id)*/,
-                      vice_captain_id             BIGINT         /*REFERENCES player(id)*/,
+                      captain_id                  INTEGER         /*REFERENCES player(id)*/,
+                      vice_captain_id             INTEGER         /*REFERENCES player(id)*/,
 
     -- Technical
-                      ca16                        SMALLINT,
+                      ca16                        DECIMAL(5,2),
                       primary_color               VARCHAR(10),
                       secondary_color             VARCHAR(10),
 
@@ -39,7 +40,7 @@ CREATE TABLE club (
                       nfe                         BOOLEAN         DEFAULT FALSE,
 
     -- Stadium
-                      stadium_id                  BIGINT         REFERENCES stadium(id),
+                      stadium_id                  INTEGER         REFERENCES stadium(id),
 
     -- Audit
                       created_at                  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,

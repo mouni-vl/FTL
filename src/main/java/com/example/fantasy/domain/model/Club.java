@@ -2,6 +2,7 @@ package com.example.fantasy.domain.model;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Getter
@@ -11,6 +12,7 @@ import java.time.Instant;
 @AllArgsConstructor
 public class Club {
     private Long id;
+    private Long fmId;
 
     private String name;
     private String shortName;
@@ -35,7 +37,7 @@ public class Club {
     private Integer captain;
     private Integer viceCaptain;
 
-    private Integer ca16;
+    private BigDecimal ca16;
     private String primaryColor;
     private String secondaryColor;
 

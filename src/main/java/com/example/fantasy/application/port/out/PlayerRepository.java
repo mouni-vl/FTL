@@ -30,7 +30,7 @@ public interface PlayerRepository {
 
     void deleteById(Long id);
 
-    Optional<Player> findByFmId(Integer fmId);
+    //Optional<Player> findByFmId(Integer fmId);
 
     long count(PlayerSearchCriteria criteria);
 }

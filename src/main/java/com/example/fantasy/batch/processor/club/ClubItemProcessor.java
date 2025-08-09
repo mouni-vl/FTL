@@ -33,7 +33,7 @@ public class ClubItemProcessor implements ItemProcessor<ClubCsvRecord, ClubEntit
         try {
             // Process Stadium using the service
             Stadium domainStadium = stadiumService.findOrCreate(
-                    record.getStadiumFmId(),
+                    record.getStadiumId(),
                     record.getStadiumName(),
                     record.getMaxAttendance());
 
@@ -41,7 +41,8 @@ public class ClubItemProcessor implements ItemProcessor<ClubCsvRecord, ClubEntit
             StadiumEntity stadium = stadiumMapper.toSource(domainStadium);
 
             ClubEntity club = new ClubEntity();
-            club.setId(record.getFmId());
+            club.setId(record.getId());
+            club.setFmId(record.getFmId());
             club.setName(record.getName());
             club.setShortName(record.getShortName());
             club.setThreeLetterName(record.getThreeLetterName());
@@ -71,8 +72,8 @@ public class ClubItemProcessor implements ItemProcessor<ClubCsvRecord, ClubEntit
     }
 
     private boolean isValidRecord(ClubCsvRecord record) {
-        if (record.getFmId() == null || !StringUtils.hasText(record.getName())) {
-            log.warn("Invalid record: Missing FM ID or name");
+        if (record.getFmId() == null || record.getId() == null || !StringUtils.hasText(record.getName())) {
+            log.warn("Invalid record: Missing ID or name");
             return false;
         }
         return true;

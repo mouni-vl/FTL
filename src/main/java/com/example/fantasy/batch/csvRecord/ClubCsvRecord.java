@@ -6,13 +6,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClubCsvRecord {
 
-    //private Long fmId;
+    private Long id;
+    private Long fmId;
     private String name;
     private String shortName;
     private String sixLetterName;
@@ -37,7 +40,7 @@ public class ClubCsvRecord {
     private Integer viceCaptainId;
     private String viceCaptainName;
 
-    private Integer ca16;
+    private BigDecimal ca16;
     private Boolean extinct;
     private Boolean nfe;
     private String officialHashtag;
@@ -47,7 +50,7 @@ public class ClubCsvRecord {
     private String primaryColor;
     private String secondaryColor;
 
-    private Long stadiumFmId;
+    private Long stadiumId;
     //private Long stadiumId;
     private String stadiumName;
     private Integer maxAttendance;

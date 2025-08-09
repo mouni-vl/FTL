@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 public class ClubCsvReader extends FlatFileItemReader<ClubCsvRecord> {
 
     private static final String[] COLUMN_NAMES = new String[]{
-            "Config", "FM ID", "Name", "Short Name", "6 Letter Name", "3 Letter Name", "Alt 3 Letter Name",
+            "Config","ID", "FM ID", "Name", "Short Name", "6 Letter Name", "3 Letter Name", "Alt 3 Letter Name",
             "Footballing Nation ID", "Footballing Nation Name", "Country ID", "Country Name",
             "City ID", "City Name", "Division ID", "Division Name",
             "Reputation", "Likely Finishing Group", "Captain ID", "Captain Name",

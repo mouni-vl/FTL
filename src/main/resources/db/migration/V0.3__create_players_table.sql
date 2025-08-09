@@ -2,7 +2,8 @@
 
 CREATE TABLE player
 (
-    id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id                  INTEGER AUTO_INCREMENT PRIMARY KEY,
+    fm_id               INTEGER      NOT NULL UNIQUE,              -- “FM ID”
 
     first_name          VARCHAR(50)  NOT NULL,                     -- “First Name”
     second_name         VARCHAR(50)  NOT NULL,                     -- “Second Name”
@@ -12,14 +13,14 @@ CREATE TABLE player
     year_of_birth       SMALLINT      NULL,                        -- “Year Of Birth”
     city_of_birth       VARCHAR(50) NULL,                          -- “City Of Birth”
 
-    permanent_club_id   BIGINT NULL,                               -- “Person > Permanent Club”
-    based_club_id       BIGINT NULL,                               -- “Person > Based Club”
-    loan_club_id        BIGINT NULL,                               -- “Person > Loan Club”
+    permanent_club_id   INTEGER NULL,                               -- “Person > Permanent Club”
+    based_club_id       INTEGER NULL,                               -- “Person > Based Club”
+    loan_club_id        INTEGER NULL,                               -- “Person > Loan Club”
     squad_number        SMALLINT NULL,                             -- “PersonClubContract > Squad Number”
 
-    nationality_1       BIGINT,                                    -- “Person > Nationality”
-    nationality_2       BIGINT NULL,                               -- “Person > Second Nationality”
-    nationality_3       BIGINT NULL,                               -- “Person > Third Nationality”
+    nationality_1       INTEGER,                                    -- “Person > Nationality”
+    nationality_2       INTEGER NULL,                               -- “Person > Second Nationality”
+    nationality_3       INTEGER NULL,                               -- “Person > Third Nationality”
 
     current_ability     SMALLINT NULL,                             -- “PlayerAttribute > Current Ability”
     potential_ability   SMALLINT NULL,                             -- “PlayerAttribute > Potential Ability”
